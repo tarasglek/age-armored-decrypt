@@ -1,0 +1,1 @@
+JS code derived from https://github.com/humphd/sops-age

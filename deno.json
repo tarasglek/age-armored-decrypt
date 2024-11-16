@@ -1,0 +1,10 @@
+
+{
+  "name": "@tarasglek/age-armored-decrypt",
+  "version": "1.0.0",
+  "exports": "./mod.ts",
+  "imports": {
+    "@std/encoding": "jsr:@std/encoding@^1.0.5",
+    "age-encryption": "npm:age-encryption@^0.1.5"
+  }
+}

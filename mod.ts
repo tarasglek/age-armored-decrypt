@@ -1,0 +1,26 @@
+import age_promise from "age-encryption";
+import { decodeBase64 } from "@std/encoding/base64";
+
+const regex =
+  /-----BEGIN AGE ENCRYPTED FILE-----\r?\n([\s\S]+?)\r?\n-----END AGE ENCRYPTED FILE-----/;
+
+/** Decrypts armored age strings */
+export async function decrypt(armoredValue: string, options?: { SOPS_AGE_KEY?: string }): Promise<string> {
+  const SOPS_AGE_KEY = options?.SOPS_AGE_KEY ?? Deno.env.get('SOPS_AGE_KEY');
+  if (!SOPS_AGE_KEY) {
+    throw new Error("SOPS_AGE_KEY env is not set");
+  }
+  const matches = armoredValue.match(regex);
+  if (!matches?.[1]) {
+    throw new Error("unable to extract armored value");
+  }
+  const base64String = matches[1].trim();
+  const binary = decodeBase64(base64String);
+
+  const age = await age_promise();
+  const decrypter = new age.Decrypter();
+  decrypter.addIdentity(SOPS_AGE_KEY);
+  const decrypted = decrypter.decrypt(binary, "uint8array");
+
+  return new TextDecoder().decode(decrypted);
+}

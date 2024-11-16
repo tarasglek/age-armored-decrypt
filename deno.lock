@@ -1,0 +1,39 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@std/encoding@^1.0.5": "1.0.5",
+    "npm:age-encryption@~0.1.5": "0.1.5"
+  },
+  "jsr": {
+    "@std/encoding@1.0.5": {
+      "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
+    }
+  },
+  "npm": {
+    "age-encryption@0.1.5": {
+      "integrity": "sha512-dCYck6yQczeJHq+Jj+nc3ziBAxcod1DLlNkyLgwJyIOXh32NzzKm3kybXCZuDhecgWLGp1FDEUW2QxqGuHtjuw==",
+      "dependencies": [
+        "bech32-buffer",
+        "libsodium-wrappers-sumo"
+      ]
+    },
+    "bech32-buffer@0.2.1": {
+      "integrity": "sha512-fCG1TyZuCN48Sdw97p/IR39fvqpFlWDVpG7qnuU1Uc3+Xtc/0uqAp8U7bMW/bGuVF5CcNVIXwxQsWwUr6un6FQ=="
+    },
+    "libsodium-sumo@0.7.15": {
+      "integrity": "sha512-5tPmqPmq8T8Nikpm1Nqj0hBHvsLFCXvdhBFV7SGOitQPZAA6jso8XoL0r4L7vmfKXr486fiQInvErHtEvizFMw=="
+    },
+    "libsodium-wrappers-sumo@0.7.15": {
+      "integrity": "sha512-aSWY8wKDZh5TC7rMvEdTHoyppVq/1dTSAeAR7H6pzd6QRT3vQWcT5pGwCotLcpPEOLXX6VvqihSPkpEhYAjANA==",
+      "dependencies": [
+        "libsodium-sumo"
+      ]
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/encoding@^1.0.5",
+      "npm:age-encryption@~0.1.5"
+    ]
+  }
+}
