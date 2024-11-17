@@ -2,6 +2,8 @@ This is a way to get [SOPS](https://github.com/getsops/sops)-like (but without n
 
 TLDR: You will be able to commit your secrets straight to git and not worry about syncing/sharing your secrets between various devs/environments.
 
+If you aren't familiar with encryption you can roughly map "private key" to password and "public key" to username.
+
 # Tutorial
 Adapted from https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age.1.html#EXAMPLES
 
@@ -13,9 +15,14 @@ age-keygen -o key.txt
 grep -v \# key.txt
 ```
 
+Load private key into env var, ignore comments
 ```sh
-# load private key into env var, ignore comments
 export SOPS_AGE_KEY=$(grep -v \# key.txt)
+```
+
+You can also save the private key into .env
+```sh
+echo SOPS_AGE_KEY=$SOPS_AGE_KEY > .env
 ```
 
 Create .sops.yaml with all of the recipients that we want to be able to decrypt
@@ -32,6 +39,8 @@ Add every recipient's public key:
 ```sh
 echo  "      -" $(echo $SOPS_AGE_KEY | age-keygen -y) "# helpful comment with description of recipient" >> .sops.yaml
 ```
+
+Note `age-keygen -y` converts private into public keys.
 
 You should end up a .sops.yaml like
 ```yaml
