@@ -4,7 +4,11 @@ import { decodeBase64 } from "@std/encoding/base64";
 const regex =
   /-----BEGIN AGE ENCRYPTED FILE-----\r?\n([\s\S]+?)\r?\n-----END AGE ENCRYPTED FILE-----/;
 
-/** Decrypts armored age strings */
+/** 
+ * Decrypts armored age strings 
+ * @param armoredValue armored age payload
+ * @param options.SOPS_AGE_KEY you can pass the secret key here or fallback on SOPS_AGE_KEY env var
+*/
 export async function decrypt(armoredValue: string, options?: { SOPS_AGE_KEY?: string }): Promise<string> {
   const SOPS_AGE_KEY = options?.SOPS_AGE_KEY ?? Deno.env.get('SOPS_AGE_KEY');
   if (!SOPS_AGE_KEY) {
