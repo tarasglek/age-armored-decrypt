@@ -1,6 +1,32 @@
-This is a way to get [SOPS](https://github.com/getsops/sops)-like (but without nice git diffs) functionality with just [age](https://github.com/FiloSottile/age).
-
 TLDR: You will be able to commit your secrets straight to git and not worry about syncing/sharing your secrets between various devs/environments.
+
+# How it works
+
+This library is a recipe to get [SOPS](https://github.com/getsops/sops)-like (but without nice git diffs) functionality with just [age](https://github.com/FiloSottile/age).
+
+File format is age-armored text/plain format, but encoded into a json string so it can be imported with 
+```js
+import secrets_encrypted from "./secrets.enc.json" with { type: "json" };
+```
+
+```
++----------------------------------------+
+|  JSON String                           |
+| "-----BEGIN AGE ENCRYPTED FILE-----\n  |
+|  +------------------------------------+|
+|  |  Age Encrypted Armored Content     ||
+|  |  +--------------------------------+||
+|  |  |  Inner JSON                    |||
+|  |  |  {                             |||
+|  |  |    "key1": "secret1",          |||
+|  |  |    "key2": "secret2",          |||
+|  |  |    "key3": "secret3",          |||
+|  |  |    "key4": "secret4"           |||
+|  |  |  }                             |||
+|  +------------------------------------+|
+|  -----END AGE ENCRYPTED FILE-----"     |
++----------------------------------------+
+```
 
 If you aren't familiar with encryption you can roughly map "private key" to password and "public key" to username.
 
