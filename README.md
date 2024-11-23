@@ -1,5 +1,14 @@
 TLDR: You will be able to commit your secrets straight to git, use them almost like constants in your code and not worry about syncing/sharing your secrets between various devs/environments. Eg you'd assign an age private key as the sole secret to every environment and it would be used to decrypt all the other secrets in provider-independent fashion.
 
+
+```js
+import secrets_encrypted from "./secrets.enc.json" with { type: "json" };
+import { decrypt } from "jsr:@tarasglek/age-armored-decrypt"
+
+const secrets = JSON.parse(await decrypt(secrets_encrypted));
+console.log(secrets.SECRET_TOKEN)
+```
+
 # How it works
 
 This library is a recipe to get [SOPS](https://github.com/getsops/sops)-like (but without nice git diffs) functionality with just [age](https://github.com/FiloSottile/age).
@@ -7,6 +16,7 @@ This library is a recipe to get [SOPS](https://github.com/getsops/sops)-like (bu
 The encrypted secrets are stored as follows:
 1. Your secrets are encrypted using [age-armored](https://pkg.go.dev/filippo.io/age/armor) format, which looks like text with "-----BEGIN AGE ENCRYPTED FILE-----" markers around base64 encrypted payload.
 2. This age-encrypted output is then stored as a JSON string in a .json file, allowing it to be imported directly in JavaScript/TypeScript using:
+
 ```js
 import secrets_encrypted from "./secrets.enc.json" with { type: "json" };
 ```
