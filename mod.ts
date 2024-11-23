@@ -13,11 +13,7 @@ export async function decrypt(armoredValue: string, options?: { SOPS_AGE_KEY?: s
   let SOPS_AGE_KEY: string | undefined;
   if (!SOPS_AGE_KEY) {
     // see if there is process.env or Deno.env to get this var
-    if (typeof process !== 'undefined') {
-      SOPS_AGE_KEY = process.env.SOPS_AGE_KEY;
-    } else if (typeof Deno !== 'undefined') {
-      SOPS_AGE_KEY = Deno.env.get("SOPS_AGE_KEY");
-    }
+    SOPS_AGE_KEY = (globalThis as any).process?.env?.SOPS_AGE_KEY ?? (globalThis as any).Deno?.env.get("SOPS_AGE_KEY");
   }
   if (!SOPS_AGE_KEY) {
     throw new Error("SOPS_AGE_KEY env is not set");
