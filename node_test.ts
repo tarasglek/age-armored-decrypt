@@ -1,3 +1,6 @@
 import { readFileSync } from "node:fs";
 import { decrypt } from "./mod.ts";
-await decrypt(secrets_encrypted)
+
+const secretsFile = readFileSync("./example/encrypted/secrets.enc.json", "utf8");
+const secrets_encrypted = JSON.parse(secretsFile);
+await decrypt(secrets_encrypted);
