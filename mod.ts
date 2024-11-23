@@ -12,7 +12,8 @@ const regex =
 export async function decrypt(armoredValue: string, options?: { SOPS_AGE_KEY?: string }): Promise<string> {
   let SOPS_AGE_KEY: string | undefined;
   if (!SOPS_AGE_KEY) {
-    // see if there is process.env or Deno.env to get this var
+    // @ts-ignore: globalThis access needs any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     SOPS_AGE_KEY = (globalThis as any).process?.env?.SOPS_AGE_KEY ?? (globalThis as any).Deno?.env.get("SOPS_AGE_KEY");
   }
   if (!SOPS_AGE_KEY) {
