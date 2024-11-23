@@ -1,4 +1,4 @@
-TLDR: You will be able to commit your secrets straight to git, use them almost like constants in your code and not worry about syncing/sharing your secrets between various devs/environments.
+TLDR: You will be able to commit your secrets straight to git, use them almost like constants in your code and not worry about syncing/sharing your secrets between various devs/environments. Eg you'd assign an age private key as the sole secret to every environment and it would be used to decrypt all the other secrets in provider-independent fashion.
 
 # How it works
 
