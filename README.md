@@ -56,7 +56,7 @@ You can also save the private key into .env
 echo SOPS_AGE_KEY=$SOPS_AGE_KEY > .env
 ```
 
-Create .sops.yaml with all of the recipients that we want to be able to decrypt
+Create .sops.yaml with the public keys of all recipients (people/environments) that should be able to decrypt
 ```sh
 cat > .sops.yaml <<'EOF'
 creation_rules:
@@ -83,7 +83,7 @@ creation_rules:
 ```
 
 ### Now we are ready to encrypt
-make a secrets.json
+Create secrets.json with your unencrypted secrets:
 ```sh
 cat << EOF > secrets.json
 {
@@ -109,6 +109,8 @@ examples/sops_decrypt.sh < secrets.enc.json
 ```
 
 You can now include the encrypted secrets and decrypt them wherever the corresponding SOPS_AGE_KEY env var is set.
+
+Note: For decryption to work, the SOPS_AGE_KEY environment variable must contain one of the private keys corresponding to the public keys listed in .sops.yaml.
 
 ```ts
 import secrets_encrypted from "./secrets.enc.json" with { type: "json" };
