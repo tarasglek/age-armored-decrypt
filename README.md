@@ -1,4 +1,4 @@
-TLDR: You will be able to commit your secrets straight to git and not worry about syncing/sharing your secrets between various devs/environments.
+TLDR: You will be able to commit your secrets straight to git, use them almost like constants in your code and not worry about syncing/sharing your secrets between various devs/environments.
 
 # How it works
 
@@ -28,9 +28,12 @@ import secrets_encrypted from "./secrets.enc.json" with { type: "json" };
 +----------------------------------------+
 ```
 
-If you aren't familiar with encryption you can roughly map "private key" to password and "public key" to username.
+Sample encrypted file: [example/encrypted/secrets.enc.json](example/encrypted/secrets.enc.json)
 
 # Tutorial
+
+If you aren't familiar with encryption you can roughly map "private key" to password and "public key" to username.
+
 Adapted from https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age.1.html#EXAMPLES
 
 ## Create a key per recipient(eg each person or environment that needs to decrypt)
