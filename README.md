@@ -4,7 +4,9 @@ TLDR: You will be able to commit your secrets straight to git, use them almost l
 
 This library is a recipe to get [SOPS](https://github.com/getsops/sops)-like (but without nice git diffs) functionality with just [age](https://github.com/FiloSottile/age).
 
-File format is age-armored text/plain format, but encoded into a json string so it can be imported with 
+The encrypted secrets are stored as follows:
+1. Your secrets are encrypted using [age-armored](https://pkg.go.dev/filippo.io/age/armor) format, which naturally outputs text with "-----BEGIN AGE ENCRYPTED FILE-----" markers
+2. This age-encrypted output is then stored as a JSON string in a .json file, allowing it to be imported directly in JavaScript/TypeScript using:
 ```js
 import secrets_encrypted from "./secrets.enc.json" with { type: "json" };
 ```
